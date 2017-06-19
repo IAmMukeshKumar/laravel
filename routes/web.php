@@ -17,9 +17,5 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/create', 'HomeController@create')->name('create');
-
-
-
-Route::post('/name','HomeController@dataenter')->name('name');
+// @todo add middleware
+Route::resource('tasks', 'TaskController');

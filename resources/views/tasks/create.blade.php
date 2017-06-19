@@ -8,15 +8,15 @@
                     <div class="panel-heading">Create new task</div>
 
                     <div class="panel-body">
-                        <form action="{{route('name')}}" method="post">
+                        <form action="{{route('tasks.store')}}" method="post" id="create-task-form">
                             {{csrf_field()}}
                             <div class="form-group">
-                                <label>Task Topic</label>
-                                <input type="text" class="form-control" placeholder="Task Topic" name="topic">
+                                <label>Task name</label>
+                                <input type="text" class="form-control" placeholder="Task name" name="title">
                             </div>
 
                             <div class="form-group">
-                                <label>Task</label>
+                                <label>Task description</label>
                                 <textarea class="form-control" rows="3" placeholder="Write your task"
                                           name="description"></textarea>
                             </div>
@@ -24,28 +24,26 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label>Start Date</label>
-                                        <input type="date" class="form-control" name="start_date">
+                                        <label>Start Datetime</label>
+                                        <div class="input-group date" id="task-start-date">
+                                            <input type="text" class="form-control" placeholder="DD/MM/YYYY HH:mm A"
+                                                   name="start_datetime" value="06/16/2017 02:42 PM">
+                                            <span class="input-group-addon">
+                                                <span class="glyphicon glyphicon-calendar"></span>
+                                             </span>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label>Start Time</label>
-                                        <input type="time" class="form-control" name="start_time">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label>End Date</label>
-                                        <input type="date" class="form-control" name="end_date">
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label>End Time</label>
-                                        <input type="time" class="form-control" name="end_time">
+                                        <label>End datetime</label>
+                                        <div class="input-group date" id="task-end-date">
+                                            <input type="text" class="form-control" placeholder="DD/MM/YYYY HH:mm A"
+                                                   name="start_datetime" value="06/16/2017 02:42 PM">
+                                            <span class="input-group-addon">
+                                                <span class="glyphicon glyphicon-calendar"></span>
+                                             </span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
