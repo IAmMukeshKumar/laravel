@@ -8,7 +8,7 @@
     var $endDate = $form.find('#task-end-date');
 
     $startDate.datetimepicker({
-        minDate: moment().startOf('day')
+        //minDate: moment().startOf('day')
     });
 
     $endDate.datetimepicker({});

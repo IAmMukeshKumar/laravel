@@ -17,5 +17,4 @@ Route::get('/', function () {
 
 Auth::routes();
 
-// @todo add middleware
-Route::resource('tasks', 'TaskController');
+Route::resource('tasks', 'TaskController', ['middleware' => ['auth']]);
