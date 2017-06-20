@@ -9,11 +9,12 @@
 
                     <div class="panel-body">
                         <div class="well">
-                            <form class="form-inline">
+                            <form class="form-inline" action="{{route('tasks.index')}}" method="get">
                                 <div class="form-group">
-                                    <input type="text" class="form-control" name="title" placeholder="Title">
+                                    <input type="text" class="form-control" name="title" placeholder="Title" value="{{request('title')}}">
                                 </div>
-                                <button class="btn btn-primary"><i class="glyphicon glyphicon-search"></i> Search</button>
+                                <button type="submit" class="btn btn-primary"><i class="glyphicon glyphicon-search"></i> Search
+                                </button>
                             </form>
                         </div>
                         <table class="table table-hover">
@@ -29,21 +30,25 @@
                             </thead>
                             <tbody>
                             @foreach($tasks as $task)
-                            <tr>
-                                <td>{{$task->title}}</td>
-                                <td>{{$task->description}}</td>
+                                <tr>
+                                    <td>{{$task->title}}</td>
+                                    <td>{{$task->description}}</td>
 
-                                <td>{{$task->start_datetime}}</td>
-                                <td>{{$task->end_datetime}}</td>
-                                <td><a class="btn btn-primary btn-xs" href="{{route('tasks.edit',$task->id)}}"><i class="glyphicon glyphicon-pencil"></i> Edit</a></td>
-                                <td>
-                                    <label class="label label-{{$task->status?'success':'default'}}">{{$task->status?'Completed':'Pending'}}</label>
-                                </td>
-                            </tr>
+                                    <td>{{$task->start_datetime}}</td>
+                                    <td>{{$task->end_datetime}}</td>
+                                    <td><a class="btn btn-primary btn-xs" href="{{route('tasks.edit',$task->id)}}"><i
+                                                    class="glyphicon glyphicon-pencil"></i> Edit</a></td>
+                                    <td>
+                                        <label class="label label-{{$task->status?'success':'default'}}">{{$task->status?'Completed':'Pending'}}</label>
+                                    </td>
+                                </tr>
                             @endforeach
                             </tbody>
                         </table>
-                        {{ $tasks->links() }}
+
+                        <div class="text-center">
+                            {{ $tasks->appends(request()->all())->links() }}
+                        </div>
 
                     </div>
                 </div>
