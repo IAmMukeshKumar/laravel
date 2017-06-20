@@ -7,6 +7,14 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class TaskCreateRequest extends FormRequest
 {
+
+    protected $rules = [
+        'title' => 'required|max:25',
+        'description' => 'min:10|max:500',
+        'start_datetime' => 'required|date|after_or_equal:today',
+        'end_datetime' => 'required|date|after:start_datetime',
+    ];
+
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -25,12 +33,7 @@ class TaskCreateRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            'title'=>'required|max:25',
-            'description'=>'min:10|max:500',
-            'start_datetime'=>'required|date|after_or_equal:today',
-            'end_datetime'=>'required|date|after:start_datetime',
-        ];
+        return $this->rules;
     }
 
 }

@@ -1,27 +1,27 @@
 @extends('layouts.app')
 
 @section('content')
-
+    <div class="container">
         <div class="row">
-            <div class="container">
-
             <div class="col-md-10 col-md-offset-1">
                 @if(session('success'))
                     <div class="alert alert-success">
                         {{session('success')}}
                     </div>
                 @endif
-                <div class="panel panel-default">
 
-                    <div class="panel-heading">Create new task</div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">Update task</div>
 
                     <div class="panel-body">
-                        <form action="{{route('tasks.store')}}" method="post" id="create-task-form">
+                        <form action="{{route('tasks.update',$task->id)}}" method="post" id="create-task-form">
+                            {{method_field('PATCH')}}
                             {{csrf_field()}}
                             <div class="form-group @if($errors->has('title')) has-error @endif">
                                 <label>Task name</label>
+
                                 <input type="text" class="form-control" placeholder="Task name" name="title"
-                                       value={{old('title')}}>
+                                       value={{old('title',$task->title)}}>
                                 @if($errors->has('title'))
                                     <p class="help-block">{{$errors->first('title')}}</p>
                                 @endif
@@ -30,7 +30,7 @@
                             <div class="form-group @if($errors->has('description')) has-error @endif">
                                 <label>Task description</label>
                                 <textarea class="form-control" rows="3" placeholder="Write your task"
-                                          name="description">{{old('description')}}</textarea>
+                                          name="description">{{old('description',$task->description)}}</textarea>
                                 @if($errors->has('description'))
                                     <p class="help-block">{{$errors->first('description')}}</p>
                                 @endif
@@ -42,13 +42,14 @@
                                         <label>Start Datetime</label>
                                         <div class="input-group date" id="task-start-date">
                                             <input type="text" class="form-control" placeholder="DD/MM/YYYY HH:mm A"
-                                                   name="start_datetime" value="{{old('start_datetime')}}">
+                                                   name="start_datetime"
+                                                   value="{{old('start_datetime', $task->start_datetime->format('m/d/Y h:i A'))}}">
                                             <span class="input-group-addon">
                                                 <span class="glyphicon glyphicon-calendar"></span>
                                              </span>
                                         </div>
                                         @if($errors->has('start_datetime'))
-                                            <p class="help-block">{{$errors->first('start_datetime')}}</p>
+                                            <p class="help-block">"{{$errors->first('start_datetime')}}"</p>
                                         @endif
                                     </div>
                                 </div>
@@ -58,7 +59,8 @@
                                         <label>End datetime</label>
                                         <div class="input-group date" id="task-end-date">
                                             <input type="text" class="form-control" placeholder="DD/MM/YYYY HH:mm A"
-                                                   name="end_datetime" value="{{old('end_datetime')}}">
+                                                   name="end_datetime"
+                                                   value="{{old('end_datetime',$task->end_datetime->format('m/d/Y h:i A'))}}">
                                             <span class="input-group-addon">
                                                 <span class="glyphicon glyphicon-calendar"></span>
                                              </span>
@@ -70,8 +72,12 @@
                                     </div>
                                 </div>
                             </div>
-                            <button type="submit" class="btn btn-primary">Save</button>
-                            <input class="btn btn-outline-danger" type="reset" value="Reset">
+                            <div class="form-group">
+                                <label>
+                                    <input type="checkbox" name="status" value="1" @if($task->status) checked @endif> Mark as complete
+                                </label>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Update</button>
                         </form>
                     </div>
                 </div>

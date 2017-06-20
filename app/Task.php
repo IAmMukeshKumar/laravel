@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 
 class Task extends Model
 {
@@ -20,7 +21,19 @@ class Task extends Model
         'created_at', 'updated_at', 'deleted_at'
     ];
 
+    protected $casts = [
+        'status' => 'boolean'
+    ];
 
+    public function setStartDatetimeAttribute($value)
+    {
+        $this->attributes['start_datetime'] = Carbon::parse($value);
+    }
+
+    public function setEndDatetimeAttribute($value)
+    {
+        $this->attributes['end_datetime'] = Carbon::parse($value);
+    }
 
 
 }

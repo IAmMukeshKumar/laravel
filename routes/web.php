@@ -17,4 +17,9 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::resource('tasks', 'TaskController', ['middleware' => ['auth']]);
+Route::resource('tasks', 'TaskController', [
+    'except' => [
+        'show'
+    ],
+    'middleware' => ['auth']
+]);

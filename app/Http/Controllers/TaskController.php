@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\TaskCreateRequest;
+use App\Http\Requests\TaskEditRequest;
 use Illuminate\Http\Request;
-use App\Task ;
+use App\Task;
 
 class TaskController extends Controller
 {
@@ -42,25 +43,15 @@ class TaskController extends Controller
         $task = new Task;
         $task->title = $request->title;
         $task->description = $request->description;
-        $task->start_datetime = \Carbon\Carbon::parse($request->start_datetime);
-        $task->end_datetime = \Carbon\Carbon::parse($request->end_datetime);
+        $task->start_datetime = $request->start_datetime;
+        $task->end_datetime = $request->end_datetime;
+        $task->status = 0;
         $task->user_id = auth()->user()->id;
 
         $task->save();
 
-        return back()->with('success', 'Saved');
+        return back()->with('success', 'Task saved');
 
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //return view();
     }
 
     /**
@@ -71,19 +62,31 @@ class TaskController extends Controller
      */
     public function edit($id)
     {
-
+        $task = Task::where('user_id', auth()->user()->id)->findOrFail($id);
+        return view('tasks.edit', compact('task'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request $request
+     * @param  \App\Http\Requests\TaskEditRequest $request
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(TaskEditRequest $request, $id)
     {
-        //
+        $task = Task::where('user_id', auth()->user()->id)
+            ->findOrFail($id);
+
+        $task->title = $request->title;
+        $task->description = $request->description;
+        $task->start_datetime = $request->start_datetime;
+        $task->end_datetime = $request->end_datetime;
+        $task->status = $request->status;
+        $task->save();
+
+
+        return back()->with('success', 'Updated');
     }
 
     /**
