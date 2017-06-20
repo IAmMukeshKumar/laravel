@@ -16,11 +16,21 @@ class TaskController extends Controller
      */
     public function index(Request $request)
     {
-        $tasks = Task::where('user_id', auth()->user()->id)
+        $paginate = $request->has('paginate') ? $request->input('paginate') : 15;
 
-            ->when($request->has('title'), function ($query) use ($request) {
-                return $query->where('title', 'like', '%' . $request->input('title') . '%');
-            })->paginate(6);
+        $tasks = Task::where('user_id', auth()->user()->id)
+            ->where(function ($query) use ($request) {
+                if ($request->has('title'))
+                    $query->where('title', 'like', '%' . $request->input('title') . '%');
+
+                if ($request->has('description'))
+                    $query->where('description', 'like', '%' . $request->input('description') . '%');
+
+            })
+            ->when($request->has('status'), function ($query) use ($request) {
+                return $query->where('status', '=', 0);
+            })
+            ->paginate((int)$paginate);
 
         return view('tasks.index', compact('tasks'));
     }
@@ -101,6 +111,6 @@ class TaskController extends Controller
      */
     public function destroy($id)
     {
-        //
+
     }
 }
