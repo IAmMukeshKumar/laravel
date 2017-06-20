@@ -8,7 +8,7 @@
             <div class="col-md-10 col-md-offset-1">
                 @if(session('success'))
                     <div class="alert alert-success">
-                        {{session('success')}}
+                        <i class="glyphicon glyphicon-ok"></i> {{session('success')}}
                     </div>
                 @endif
                 <div class="panel panel-default">

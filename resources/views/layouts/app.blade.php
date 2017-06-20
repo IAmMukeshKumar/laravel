@@ -47,7 +47,7 @@
                             <li><a href="{{ route('register') }}">Register</a></li>
                         @else
                             <li><a href="{{ route('tasks.index') }}"><i class="glyphicon glyphicon-th-list"></i> My tasks</a></li>
-                            <li><a href="{{ route('tasks.create') }}">New task</a></li>
+                            <li><a href="{{ route('tasks.create') }}"><i class="glyphicon glyphicon-plus"></i> New task</a></li>
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                                    <i class="glyphicon glyphicon-user"></i> {{ Auth::user()->name }} <span class="caret"></span>

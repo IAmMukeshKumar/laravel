@@ -82,7 +82,7 @@ class TaskController extends Controller
         $task->description = $request->description;
         $task->start_datetime = $request->start_datetime;
         $task->end_datetime = $request->end_datetime;
-        $task->status = $request->status;
+        $task->status = $request->has('status');
         $task->save();
 
 
