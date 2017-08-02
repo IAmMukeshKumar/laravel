@@ -17,14 +17,11 @@ class CreateTasksTable extends Migration
             $table->increments('id');
             $table->string('title');
             $table->string('description')->nullable()->default(NULL);
-
             $table->datetime('start_datetime');
             $table->datetime('end_datetime');
-
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users');
             $table->boolean('status')->default('0');
-
             $table->timestamps();
         });
     }

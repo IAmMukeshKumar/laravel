@@ -35,7 +35,6 @@
                                                @if(request('status')) checked @endif> Only show pending
                                     </label>
                                 </div>
-
                                 <button type="submit" class="btn btn-primary"><i class="glyphicon glyphicon-search"></i>
                                     Search
                                 </button>
@@ -58,7 +57,6 @@
                                 <tr>
                                     <td>{{$task->title}}</td>
                                     <td>{{str_limit($task->description,30)}}</td>
-
                                     <td>{{$task->start_datetime->format('d-m-y h:i:s a')}}</td>
                                     <td>{{$task->end_datetime->format('d-m-y h:i:s a')}}</td>
                                     <td>
@@ -66,8 +64,10 @@
                                     </td>
                                     <td><a class="btn btn-primary btn-xs" href="{{route('tasks.edit',$task->id)}}"><i
                                                     class="glyphicon glyphicon-edit"></i></a>
-                                        <a class="btn btn-danger btn-xs" href="{{route('tasks.destroy',$task->id)}}"><i
-                                                    class="glyphicon glyphicon-trash"></i></a>
+                                        <button type="button" class="btn btn-danger btn-xs"
+                                                data-target="#delete-task-modal" data-toggle="modal"
+                                                data-id="{{$task->id}}">
+                                            <i class="glyphicon glyphicon-trash"></i></button>
                                     </td>
 
 
@@ -85,4 +85,28 @@
             </div>
         </div>
     </div>
+
+    <div class="modal fade" tabindex="-1" role="dialog" id="delete-task-modal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Confirm delete</h4>
+                </div>
+                <form method="post" data-action="{{route('tasks.destroy',0)}}">
+                    {{csrf_field()}}
+                    {{method_field('DELETE')}}
+                    <div class="modal-body">
+                        <p>Do you want to delete this task ?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-danger"><i class="glyphicon glyphicon-trash"> </i> Delete
+                        </button>
+                    </div>
+                </form>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
 @endsection

@@ -25946,6 +25946,11 @@ __webpack_require__(120);
     $endDate.on('dp.change', function (e) {
         $startDate.data('DateTimePicker').maxDate(e.date);
     });
+
+    $('#delete-task-modal').on('show.bs.modal', function (e) {
+        var $confirmForm = $(this).find('form').first();
+        $confirmForm.attr('action', $confirmForm.data('action') + $(e.relatedTarget).data('id'));
+    });
 })(jQuery);
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 

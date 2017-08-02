@@ -111,6 +111,9 @@ class TaskController extends Controller
      */
     public function destroy($id)
     {
+        $task = Task::where('user_id', auth()->user()->id)->findOrFail($id);
+        $task->delete();
 
+        return back()->with('success', 'Task was deleted successfully');
     }
 }
